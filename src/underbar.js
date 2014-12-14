@@ -38,13 +38,9 @@
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
-    if(n === undefined){
-      return array[array.length - 1];
-    } else if(n > array.length) {
-      return array;
-    } else {
-      return array.slice((array.length - n), (array.length));
-    }
+    if(n === undefined){return array[array.length - 1];}
+    else if(n > array.length){return array;}
+    else {return array.slice((array.length - n), (array.length));}
   };
 
   // Call iterator(value, key, collection) for each element of collection.
@@ -85,39 +81,33 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
-    var results = [];
+    var passed = [];
     _.each(collection, function(item){
-      if(test(item)) {
-        results.push(item);
-      }
+      if(test(item)) {passed.push(item);}
     });
     
-    return results;
+    return passed;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
-    var results = [];
+    var rejected = [];
     _.filter(collection, function(item){
-      if(!test(item)){
-        results.push(item);
-      }
+      if(!test(item)){rejected.push(item);}
     });
-    return results;
+    return rejected;
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-    var results = [];
+    var uniques = [];
 	_.each(array, function(item){
-	  if(_.indexOf(results, item) === -1){
-	    results.push(item);
-	  }
+	  if(_.indexOf(uniques, item) === -1){uniques.push(item);}
 	});
     
-    return results;
+    return uniques;
   };
 
 
@@ -126,12 +116,12 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
-    var results = [];
+    var mapped = [];
     _.each(collection, function(item){
-      results.push(iterator(item));
+      mapped.push(iterator(item));
     });
     
-    return results;
+    return mapped;
   };
 
   /*
