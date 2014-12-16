@@ -187,7 +187,6 @@
       accumulator = iterator(accumulator, item);  
     });
     
-    
     return accumulator;
     
   };
