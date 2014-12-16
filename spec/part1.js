@@ -251,16 +251,30 @@
         expect(total).to.equal(6);
       });
 
-      it('should invoke the iterator on the first element when given an accumulator', function() {
+      it('should invoke the iterator on the first element of an array when given an accumulator', function() {
         var sumSquares = function(tally, item) {return tally + item * item; };
         var total = _.reduce([2, 3], sumSquares, 0);
 
         expect(total).to.equal(13);
       });
+      
+      it('should invoke the iterator on the first element of an object when given an accumulator', function() {
+        var sumSquares = function(tally, item) {return tally + item * item; };
+        var total = _.reduce({p1:2, p2:3}, sumSquares, 0);
 
-      it('should not invoke the iterator on the first element when using it as an accumulator', function() {
+        expect(total).to.equal(13);
+      });
+
+      it('should not invoke the iterator on the first element of an array when using it as an accumulator', function() {
         var sumSquares = function(tally, item) {return tally + item * item; };
         var total = _.reduce([2, 3], sumSquares);
+
+        expect(total).to.equal(11);
+      });
+      
+      it('should not invoke the iterator on the first element of an object when using it as an accumulator', function() {
+        var sumSquares = function(tally, item) {return tally + item * item; };
+        var total = _.reduce({p1: 2,p2: 3}, sumSquares);
 
         expect(total).to.equal(11);
       });
