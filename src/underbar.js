@@ -174,7 +174,6 @@
       }	
       	
       accumulator = collection.shift();
-       
     }
       
       // array or object w/ defined accumulator
@@ -201,7 +200,17 @@
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
+	
+	// default iterator if none provided
+	if(iterator === undefined) {iterator = _.identity;}
+
+	var passed = true;
+	
+    _.reduce(collection, function(accumulator, value) {
+      	if(!iterator(value)) {passed = false;}
+    }, passed);
+  
+    return passed;
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
