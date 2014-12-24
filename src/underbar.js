@@ -168,9 +168,7 @@
       (collection !== null)){
     
       if(Object.prototype.toString.call(collection) === '[object Object]'){
-        collection = _.map(collection, function(item){
-      	  return item;
-      	});
+        collection = _.map(collection, _.identity);
       }	
       	
       accumulator = collection.shift();
@@ -245,19 +243,23 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-  
     _.each(arguments, function (arg){
       _.each(arg, function(item, key){
         obj[key] = item;
       });
     });
-    
     return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    _.each(arguments, function (arg){
+      _.each(arg, function(item, key){
+        obj[key] = key in obj ? obj[key] : item;
+      });
+    });
+    return obj;
   };
 
 
@@ -283,7 +285,7 @@
     return function() {
       if (!alreadyCalled) {
         // TIP: .apply(this, arguments) is the standard way to pass on all of the
-        // infromation from one function call to another.
+        // information from one function call to another.
         result = func.apply(this, arguments);
         alreadyCalled = true;
       }
@@ -301,6 +303,10 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    
+    var cache = [];
+    
+  
   };
 
   // Delays a function for the given number of milliseconds, and then calls
