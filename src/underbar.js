@@ -304,9 +304,15 @@
   // instead if possible.
   _.memoize = function(func) {
     
-    var cache = [];
+    var cache = {};
     
-  
+    return function(){
+      var args = Array.prototype.slice.call(arguments).toString();
+      if(!cache[args]){
+        cache[args] = func.apply(this, arguments);
+      }
+      return cache[args];  
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
